@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat and File Upload</title>
+    <style>
+        /* Style for the entire chat and file upload container */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        #chat-container {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd; /* Border added to all sides */
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+        }
+
+        /* Style for the chat box */
+        #chat-box {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            box-sizing: border-box; /* Ensure padding doesn't affect width */
+        }
+
+        /* Style for user input box */
+        #user-input {
+            width: calc(100% - 110px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Style for buttons */
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Style for the file input and buttons container */
+        #buttons-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        /* Hide the default file input */
+        #file-input {
+            display: none;
+        }
+
+        /* Custom style for the "Choose File" button */
+        #choose-file-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Style for the progress circle */
+        #progress-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4CAF50;
+            animation: spin 2s linear infinite;
+            display: none; /* Hidden initially */
+        }
+
+        /* Spin animation for the progress circle */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Message */
+        #message {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #4CAF50;
+        }
+
+        /* Display file name */
+        #file-name {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Make sure angle brackets are displayed correctly in chat */
+        .chat-message {
+            white-space: pre-wrap; /* Preserve formatting like newlines */
+        }
+
+        /* Fix for borders on right side */
+        #chat-box, #user-input, #file-name, #buttons-container {
+            box-sizing: border-box;
+        }
+
+        /* Prevent overflow of content beyond borders */
+        #chat-container {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Chat Container -->
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <div id="buttons-container">
+            <input type="text" id="user-input" placeholder="Type a message..."/>
+            <button class="btn" id="send-btn">Send</button>
+        </div>
+        
+        <!-- File Upload -->
+        <div id="file-upload-container" style="margin-top: 10px;">
+            <label for="file-input" id="choose-file-btn">Choose File</label>
+            <input type="file" id="file-input" />
+            <button class="btn" id="upload-btn">Upload File</button>
+            <div id="file-name"></div>
+        </div>
+    </div>
+
+    <!-- File Upload Container -->
+    <div id="progress-container"></div>
+    <div id="message"></div>
+
+    <script>
+        const sendBtn = document.getElementById('send-btn');
+        const userInput = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+        const progressContainer = document.getElementById("progress-container");
+        const messageContainer = document.getElementById("message");
+        const uploadBtn = document.getElementById("upload-btn");
+        const fileInput = document.getElementById("file-input");
+        const fileNameContainer = document.getElementById("file-name");
+
+        // Function to escape special characters for correct display in the chat
+        function escapeHTML(str) {
+            return str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Send chat message and anonymize text
+        sendBtn.addEventListener("click", function() {
+            const userText = userInput.value;
+            if (!userText.trim()) {
+                messageContainer.innerText = "Please type a message.";
+                return;
+            }
+
+            // Add user text to the chat box
+            chatBox.innerHTML += `<div class="chat-message"><b>You:</b> ${escapeHTML(userText)}</div>`;
+            userInput.value = ""; // Clear input field
+
+            // Make a POST request to anonymize text
+            fetch('/anonymize', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text: userText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const anonymizedText = data.processed_text;
+                chatBox.innerHTML += `<div class="chat-message"><b>Bot:</b> ${escapeHTML(anonymizedText)}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            })
+            .catch(error => {
+                messageContainer.innerText = "Error anonymizing the text.";
+                console.error("Error:", error);
+            });
+        });
+
+        // File upload functionality
+        fileInput.addEventListener("change", function() {
+            const fileName = fileInput.files[0]?.name || "";
+            if (fileName) {
+                fileNameContainer.textContent = `Selected file: ${fileName}`;
+            }
+        });
+
+        uploadBtn.addEventListener("click", function() {
+            if (fileInput.files.length === 0) {
+                messageContainer.innerText = "Please select a file.";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("files", fileInput.files[0]);
+
+            progressContainer.style.display = "block";  // Show progress circle
+
+            // Make the POST request to upload and anonymize the file
+            fetch("/anonymizeAttachments", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                progressContainer.style.display = "none"; // Hide progress circle
+                messageContainer.innerText = "File uploaded and anonymized successfully!";
+                fileNameContainer.textContent = "";  // Clear file name
+
+                const anonymizedFileUrl = data.files[0].anonymized_file_url;
+                chatBox.innerHTML += `<div class="chat-message"><b>Bot:</b> <a href="${anonymizedFileUrl}" target="_blank">Download Anonymized File</a></div>`;
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            })
+            .catch(error => {
+                progressContainer.style.display = "none"; // Hide progress circle
+                messageContainer.innerText = "Error uploading file.";
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+</html>

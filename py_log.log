@@ -1,0 +1,216 @@
+2024-11-27 15:03:34,807 INFO Loaded recognizer: CreditCardRecognizer
+2024-11-27 15:03:34,808 INFO Loaded recognizer: EmailRecognizer
+2024-11-27 15:03:34,808 INFO Loaded recognizer: PhoneRecognizer
+2024-11-27 15:03:34,808 INFO Loaded recognizer: DateRecognizer
+2024-11-27 15:03:34,808 INFO Loaded recognizer: ZipCodeRecognizer
+2024-11-27 15:03:34,808 INFO Loaded recognizer: MemberCodeRecognizer
+2024-11-27 15:03:34,808 INFO Loaded recognizer: TitlesRecognizer
+2024-11-27 15:03:34,808 INFO Loaded recognizer: Transformers model ./model
+2024-11-27 15:03:35,221 WARNING model_to_presidio_entity_mapping is missing from configuration, using default
+2024-11-27 15:03:35,221 WARNING low_score_entity_names is missing from configuration, using default
+2024-11-27 15:03:35,221 WARNING labels_to_ignore is missing from configuration, using default
+2024-11-27 15:03:35,222 WARNING Model en_core_web_sm is not installed. Downloading...
+2024-11-27 15:03:39,613 INFO Finished downloading model en_core_web_sm
+2024-11-27 15:03:40,301 INFO Created NLP engine: spacy. Loaded models: ['en']
+2024-11-27 15:03:40,301 INFO Fetching all recognizers for language en
+2024-11-27 15:03:45,771 WARNING Found unrecognized label ID, returning entity as is
+2024-11-27 15:03:45,772 WARNING Found unrecognized label ID, returning entity as is
+2024-11-27 15:03:45,773 INFO {'original_score': 0.5,
+ 'pattern': "\\b((([!#$%&'*+\\-/=?^_`{|}~\\w])|([!#$%&'*+\\-/=?^_`{|}~\\w][!#$%&'*+\\-/=?^_`{|}~\\.\\w]{0,}[!#$%&'*+\\-/=?^_`{|}~\\w]))[@]\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*)\\b",
+ 'pattern_name': 'Email (Medium)',
+ 'recognizer': 'EmailRecognizer',
+ 'regex_flags': 26,
+ 'score': 1.0,
+ 'score_context_improvement': 0.5,
+ 'supportive_context_word': 'email',
+ 'textual_explanation': 'Detected by `EmailRecognizer` using pattern `Email '
+                        '(Medium)`',
+ 'validation_result': True}
+2024-11-27 15:03:45,773 INFO {'original_score': 1.0,
+ 'pattern': '212 - 555 - 5555',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 1.0,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as PHONE_NUMBER by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,774 INFO {'original_score': 1.0,
+ 'pattern': '12 - 02 - 1997',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 1.0,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as DATE_TIME by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,774 INFO {'original_score': 0.3,
+ 'pattern': '\\b((4\\d{3})|(5[0-5]\\d{2})|(6\\d{3})|(1\\d{3})|(3\\d{3}))[- '
+            ']?(\\d{3,4})[- ]?(\\d{3,4})[- ]?(\\d{3,5})\\b',
+ 'pattern_name': 'All Credit Cards (weak)',
+ 'recognizer': 'CreditCardRecognizer',
+ 'regex_flags': 26,
+ 'score': 1.0,
+ 'score_context_improvement': 0.7,
+ 'supportive_context_word': 'credit',
+ 'textual_explanation': 'Detected by `CreditCardRecognizer` using pattern `All '
+                        'Credit Cards (weak)`',
+ 'validation_result': True}
+2024-11-27 15:03:45,774 INFO {'original_score': 0.9900000095367432,
+ 'pattern': 'litoiu',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.9900000095367432,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as PERSON by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,774 INFO {'original_score': 0.9900000095367432,
+ 'pattern': 'california',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.9900000095367432,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as LOCATION by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,775 INFO {'original_score': 0.9700000286102295,
+ 'pattern': 'litoiu',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.9700000286102295,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as PERSON by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,775 INFO {'original_score': 0.9700000286102295,
+ 'pattern': 'york',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.9700000286102295,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as LOCATION by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,775 INFO {'original_score': 0.8999999761581421,
+ 'pattern': 'live. com',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.8999999761581421,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as ORGANIZATION by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,775 INFO {'original_score': 0.8899999856948853,
+ 'pattern': 'california',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.8899999856948853,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as LOCATION by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,775 INFO {'original_score': 0.8799999952316284,
+ 'pattern': 'hamza. hussain97',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.8799999952316284,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as PERSON by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,776 INFO {'original_score': 0.8100000023841858,
+ 'pattern': 'york university',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.8100000023841858,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as LOCATION by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,776 INFO {'original_score': 0.5199999809265137,
+ 'pattern': 'pizza',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.5199999809265137,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as PERSON by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,776 INFO {'original_score': 0.5,
+ 'pattern': '4502310077098265',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.5,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as ID by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,776 INFO {'original_score': 0.01,
+ 'pattern': '[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d',
+ 'pattern_name': 'Member code',
+ 'recognizer': 'MemberCodeRecognizer',
+ 'regex_flags': 26,
+ 'score': 0.4,
+ 'score_context_improvement': 0.39,
+ 'supportive_context_word': 'member',
+ 'textual_explanation': 'Detected by `MemberCodeRecognizer` using pattern '
+                        '`Member code`',
+ 'validation_result': None}
+2024-11-27 15:03:45,776 INFO {'original_score': 0.38999998569488525,
+ 'pattern': '##l1',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.38999998569488525,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as LOCATION by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,777 INFO {'original_score': 0.24,
+ 'pattern': 'm3j1',
+ 'pattern_name': None,
+ 'recognizer': 'TransformersRecognizer',
+ 'regex_flags': None,
+ 'score': 0.24,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Identified as ID by the '
+                        'StanfordAIMI/stanford-deidentifier-base NER model',
+ 'validation_result': None}
+2024-11-27 15:03:45,777 INFO {'original_score': 0.01,
+ 'pattern': '[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d',
+ 'pattern_name': 'zip code',
+ 'recognizer': 'ZipCodeRecognizer',
+ 'regex_flags': 26,
+ 'score': 0.01,
+ 'score_context_improvement': 0,
+ 'supportive_context_word': '',
+ 'textual_explanation': 'Detected by `ZipCodeRecognizer` using pattern `zip '
+                        'code`',
+ 'validation_result': None}
